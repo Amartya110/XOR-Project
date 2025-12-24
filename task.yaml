@@ -1,0 +1,36 @@
+id: xor-project-lock
+difficulty: hard
+
+description: |
+  A compiled binary named `lock` validates a secret key stored in a binary file.
+
+  The key consists of two unsigned 64-bit integers written in little-endian
+  binary format. The binary applies internal validation logic to the values
+  and grants access only if all checks pass.
+
+  Your task is to generate a valid `key.bin` file such that the program
+  grants access.
+inputs:
+  - lock (compiled executable)
+outputs:
+  - key.bin (binary file, exactly 16 bytes)
+
+rules:
+  - The key must be written in little-endian binary format
+  - The file must contain exactly two integers
+  - Integer overflow behavior must be handled correctly
+  - Do not modify the binary 
+  - Do not patch or inspect the binary
+  - No brute-force approaches are feasible here
+  - The solution must be deterministic 
+  - No user interaction is allowed
+
+success_criteria:
+  - Running './lock' prints exactly: "ACCESS GRANTED"
+  - No additional output is produced
+  - The program exits with code 0
+
+notes:
+  -Any other output indicates failure
+  -Partial solutions will be rejected
+  

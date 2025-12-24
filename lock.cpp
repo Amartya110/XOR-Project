@@ -1,37 +1,40 @@
 #include <iostream>
 #include <fstream>
-#include <cstdint>//for unit64_t
+#include <cstdint>
 
-#pragma pack(push,1)
-struct Key{
-    unint64_t a;
-    unint64_t b;
+#pragma pack(push, 1)
+struct Key {
+    uint64_t a;
+    uint64_t b;
 };
 #pragma pack(pop)
 
-int main(){
-    std::ifstream file("key.bin",std::ios::binary);
-    Key k;
-    if(!file ||!file.read((char*)&k, sizeof(k))){
-        std::cout<<"ACCESS DENIED: key.bin missing or invalid."<<std::endl;
+int main() {
+    std::ifstream file("key.bin", std::ios::binary);
+    if (!file) {
+        std::cout << "ACCESS DENIED\n";
         return 1;
     }
-    const uint64_t TARGET_SUM=16988065061902050250ULL;
-    const uint64_t TARGET_XOR=7765935306893693898ULL;
-    uint64_t actual_sum=k.a+k.b;
-    uint64_t actual_xor=k.a^k.b;
 
-    if(actual_sum!=TARGET_SUM){
-        std::cout<<"ACCESS DENIED: Sum Incorrect."<<std::endl;
-        std::cout<<"Expected: "<<TARGET_SUM<<"\nGot: "<<actual_sum<<std::endl;
+    Key k{};
+    if (!file.read(reinterpret_cast<char*>(&k), sizeof(k))) {
+        std::cout << "ACCESS DENIED\n";
+        return 1;
+    }
+
+    const uint64_t TARGET_SUM = 11111111101111111110;
+    const uint64_t TARGET_XOR = 10966994397930884516;
+
+    if ((k.a + k.b) != TARGET_SUM) {
+        std::cout << "ACCESS DENIED\n";
         return 0;
     }
-    if(actual_xor!=TARGET_XOR){
-        std::cout<<"ACCESS DENIED: Xor Incorrect."<<std::endl;
-        std::cout<<"Expected: "<<TARGET_XOR<<"\nGot: "<<actual_xor<<std::endl;
+
+    if ((k.a ^ k.b) != TARGET_XOR) {;
+        std::cout << "ACCESS DENIED\n";
         return 0;
     }
-    std::cout<<"ACCESS GRANTED"<<std::endl;
+
+    std::cout << "ACCESS GRANTED\n";
     return 0;
-
 }
