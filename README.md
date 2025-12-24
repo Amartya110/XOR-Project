@@ -1,6 +1,6 @@
 # XOR Project Lock – Terminal-Bench Sample Task
 
-This repository contains a Hard-difficulty Terminal-Bench–style CLI task.
+This repository contains a Medium-difficulty Terminal-Bench–style CLI task.
 
 The task requires generating a binary key file that satisfies multiple
 64-bit arithmetic constraints enforced by a compiled executable.
