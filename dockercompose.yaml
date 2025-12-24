@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  task:
+    build: .
+    container_name: xor-project-lock
+    working_dir: /app
+    command: ["bash", "./run-tests.sh"]
